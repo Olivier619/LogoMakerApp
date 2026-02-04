@@ -67,6 +67,62 @@ const UserProvider = (({ children }) => {
     }
   };
 
+          const removeBackground = async () => {
+    if (!imageSrc) {
+      alert("Aucune image à traiter");
+      return;
+    }
+
+    try {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = imageSrc;
+
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      ctx.drawImage(img, 0, 0);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+
+      // Détecter la couleur de fond (coin supérieur gauche)
+      const bgR = data[0];
+      const bgG = data[1];
+      const bgB = data[2];
+
+      // Supprimer les pixels similaires à la couleur de fond
+      const threshold = 30; // Seuil de tolérance
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        
+        // Si le pixel est proche de la couleur de fond
+        if (Math.abs(r - bgR) < threshold && 
+            Math.abs(g - bgG) < threshold && 
+            Math.abs(b - bgB) < threshold) {
+          data[i + 3] = 0; // Rendre transparent
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+      const newImageSrc = canvas.toDataURL('image/png');
+      setImageSrc(newImageSrc);
+      
+      alert("Arrière-plan supprimé avec succès!");
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'arrière-plan:", error);
+      alert("Erreur lors de la suppression de l'arrière-plan");
+    }
+  };
+
   useEffect(() => {
     const updatedValue = {
       ...storedValues,
@@ -110,6 +166,7 @@ const UserProvider = (({ children }) => {
   setTransparentBg,
     logoRef,
     downloadLogoPng,
+        removeBackground,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
