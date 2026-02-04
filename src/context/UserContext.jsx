@@ -25,7 +25,43 @@ const UserProvider = (({ children }) => {
   const logoRef = useRef();
 
   const downloadLogoPng = () => {
+    const node = logoRef.current;const downloadLogoPng = async () => {
     const node = logoRef.current;
+    
+    if (!node) {
+      alert("Erreur: aucune préview disponible");
+      return;
+    }
+
+    try {
+      // Attendre que toutes les images soient chargées
+      const images = node.querySelectorAll('img');
+      await Promise.all(
+        Array.from(images).map(img => {
+          return new Promise((resolve) => {
+            if (img.complete) {
+              resolve();
+            } else {
+              img.onload = resolve;
+              img.onerror = resolve;
+            }
+          });
+        })
+      );
+
+      // Capturer l'image
+      const dataUrl = await htmlToImage.toPng(node);
+      const link = document.createElement("a");
+      link.download = `logo-${Date.now()}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Erreur lors du téléchargement:", error);
+      alert("Erreur lors du téléchargement du logo");
+    }
+  }
     htmlToImage
       .toPng(node)
       .then((dataUrl) => {
