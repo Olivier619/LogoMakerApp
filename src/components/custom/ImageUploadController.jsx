@@ -116,3 +116,4 @@ export default function ImageUploadController() {
     </>
   );
 }
+// Force reload cache - v2
