@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 export default function LogoPreview() {
-  const { size, rotate, color, rounded, padding, bgColor, imageSrc, logoRef } , imageHue, imageSaturation, imageBrightness, transparentBg=
-    useContext(UserContext);
+  const { size, rotate, color, rounded, padding, bgColor, imageSrc, logoRef, imageHue, imageSaturation, imageBrightness, transparentBg } = useContext(UserContext);
 
   return (
     <div className="flex justify-center items-center">
