@@ -3,7 +3,7 @@ import { UserContext } from "../../context/UserContext";
 import { Button } from "../ui/button";
 
 export default function ImageUploadController() {
-  const { setImageSrc, size, setSize, rotate, setRotate, padding, setPadding, rounded, setRounded } = useContext(UserContext);
+  const { setImageSrc, size, setSize, rotate, setRotate, padding, setPadding, rounded, setRounded, imageHue, setImageHue, imageSaturation, setImageSaturation, imageBrightness, setImageBrightness, transparentBg, setTransparentBg } = useContext(UserContext);
 
   const handleImageChange = (event) => {
     const file = event.target.files?.[0];
@@ -111,6 +111,63 @@ export default function ImageUploadController() {
             onChange={(e) => setRounded(parseInt(e.target.value))}
             className="w-full"
           />
+          
+        {/* Image Color Filters */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Teinte: {imageHue}°
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="360"
+            value={imageHue}
+            onChange={(e) => setImageHue(parseInt(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Saturation: {imageSaturation}%
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="200"
+            value={imageSaturation}
+            onChange={(e) => setImageSaturation(parseInt(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Luminosité: {imageBrightness}%
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="200"
+            value={imageBrightness}
+            onChange={(e) => setImageBrightness(parseInt(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        {/* Toggle Transparent Background */}
+        <div className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="transparentBg"
+            checked={transparentBg}
+            onChange={(e) => setTransparentBg(e.target.checked)}
+            className="w-4 h-4"
+          />
+          <label htmlFor="transparentBg" className="text-sm font-medium text-slate-700">
+            Fond transparent
+          </label>
+        </div>
         </div>
       </div>
     </>
