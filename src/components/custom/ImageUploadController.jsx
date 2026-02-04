@@ -20,6 +20,7 @@ export default function ImageUploadController() {
     const url = URL.createObjectURL(file);
     console.log("Image uploadée:", url);
     setImageSrc(url);
+        event.target.value = ""; // Réinitialiser l'input pour permettre des sélections répétées
   };
 
   return (
