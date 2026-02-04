@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
-import { Button } from "../ui/button";
+import { UserContext } from "../../../context/UserContext";
+import { Button } from "../../ui/button";
 
 export default function ImageUploadController() {
-  const { setImageSrc } = useContext(UserContext);
+  const { setImageSrc, size, setSize, rotate, setRotate, padding, setPadding, rounded, setRounded } = useContext(UserContext);
 
   const handleImageChange = (event) => {
     const file = event.target.files?.[0];
-    
+
     if (!file) return;
 
     // Vérifier le type d'image
@@ -20,13 +20,11 @@ export default function ImageUploadController() {
     const url = URL.createObjectURL(file);
     console.log("Image uploadée:", url);
     setImageSrc(url);
-        event.target.value = ""; // Réinitialiser l'input pour permettre des sélections répétées
+    event.target.value = ""; // Réinitialiser l'input pour permettre des sélections répétées
   };
 
   return (
-    <div className="space-y-4 p-4 border rounded-lg bg-slate-50">
-      <h3 className="font-semibold text-lg">Image du logo</h3>
-      
+    <>
       <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-slate-400 cursor-pointer transition">
         <input
           type="file"
@@ -52,6 +50,69 @@ export default function ImageUploadController() {
       >
         Réinitialiser
       </Button>
-    </div>
+
+      {/* Sliders for image customization */}
+      <div className="space-y-4 mt-6">
+        {/* Size Slider */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Taille: {size}px
+          </label>
+          <input
+            type="range"
+            min="50"
+            max="500"
+            value={size}
+            onChange={(e) => setSize(parseInt(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        {/* Rotation Slider */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Rotation: {rotate}°
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="360"
+            value={rotate}
+            onChange={(e) => setRotate(parseInt(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        {/* Padding Slider */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Padding: {padding}px
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="50"
+            value={padding}
+            onChange={(e) => setPadding(parseInt(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        {/* Border Radius Slider */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            Rayon bordure: {rounded}px
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={rounded}
+            onChange={(e) => setRounded(parseInt(e.target.value))}
+            className="w-full"
+          />
+        </div>
+      </div>
+    </>
   );
 }
