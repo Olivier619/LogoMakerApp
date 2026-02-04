@@ -5,17 +5,21 @@ import { Button } from "../ui/button";
 export default function ImageUploadController() {
   const { setImageSrc } = useContext(UserContext);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files?.[0];
+  const handleImageChange = (event) => {
+    const file = event.target.files?.[0];
+    
     if (!file) return;
 
+    // Vérifier le type d'image
     if (!file.type.startsWith("image/")) {
-      alert("Veuillez selectioner une image valide");
+      alert("Veuillez sélectionner une image valide");
       return;
     }
 
-    const imageUrl = URL.createObjectURL(file);
-    setImageSrc(imageUrl);
+    // Créer une URL pour l'image
+    const url = URL.createObjectURL(file);
+    console.log("Image uploadée:", url);
+    setImageSrc(url);
   };
 
   return (
@@ -32,7 +36,7 @@ export default function ImageUploadController() {
         />
         <label htmlFor="imageUpload" className="cursor-pointer block">
           <p className="text-slate-600 font-medium">
-            📁 Cliquez pour telecharger une image
+            📁 Cliquez pour télécharger une image
           </p>
           <p className="text-sm text-slate-500 mt-2">
             PNG, JPG, GIF, WebP...
@@ -41,13 +45,11 @@ export default function ImageUploadController() {
       </div>
 
       <Button
-        onClick={() => {
-          setImageSrc(null);
-        }}
+        onClick={() => setImageSrc(null)}
         variant="outline"
         className="w-full"
       >
-        Reinitialiser
+        Réinitialiser
       </Button>
     </div>
   );
