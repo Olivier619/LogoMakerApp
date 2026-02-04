@@ -106,7 +106,7 @@ const UserProvider = (({ children }) => {
   imageBrightness,
   setImageBrightness,
   transparentBg,
-  setTransparentBg
+  setTransparentBg,
     logoRef,
     downloadLogoPng,
   };
