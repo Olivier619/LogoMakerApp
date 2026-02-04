@@ -3,7 +3,7 @@ import { UserContext } from "../../context/UserContext";
 import { Button } from "../ui/button";
 
 export default function ImageUploadController() {
-  const { setImageSrc, size, setSize, rotate, setRotate, padding, setPadding, rounded, setRounded, imageHue, setImageHue, imageSaturation, setImageSaturation, imageBrightness, setImageBrightness, transparentBg, setTransparentBg } = useContext(UserContext);
+  const { setImageSrc, size, setSize, rotate, setRotate, padding, setPadding, rounded, setRounded, imageHue, setImageHue, imageSaturation, setImageSaturation, imageBrightness, setImageBrightness, transparentBg, setTransparentBg } = useContext(UserContext, removeBackground, vectorizeImage);
 
   const handleImageChange = (event) => {
     const file = event.target.files?.[0];
