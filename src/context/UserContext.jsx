@@ -11,7 +11,7 @@ const UserProvider = (({ children }) => {
     return storedValues ? storedValues[key] : defaultValue;
   };
 
-  const [size, setSize] = useState(() => getInitialValue("iconSize", 0));
+  const [size, setSize] = useState(() => getInitialValue("iconSize", 150));
   const [rotate, setRotate] = useState(() => getInitialValue("iconRotate", 0));
   const [color, setColor] = useState(() =>
     getInitialValue("iconColor", "rgba(255,255,255,1)")
@@ -24,8 +24,7 @@ const UserProvider = (({ children }) => {
   const [imageSrc, setImageSrc] = useState(null);
   const logoRef = useRef();
 
-  const downloadLogoPng = () => {
-    const node = logoRef.current;const downloadLogoPng = async () => {
+  const downloadLogoPng = async () => {
     const node = logoRef.current;
     
     if (!node) {
@@ -61,20 +60,6 @@ const UserProvider = (({ children }) => {
       console.error("Erreur lors du téléchargement:", error);
       alert("Erreur lors du téléchargement du logo");
     }
-  }
-    htmlToImage
-      .toPng(node)
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = `logo-${Date.now()}.png`;
-        link.href = dataUrl;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      })
-      .catch((error) => {
-        console.error("Could not generate image", error);
-      });
   };
 
   useEffect(() => {
