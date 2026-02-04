@@ -11,8 +11,7 @@ export default function LogoPreview() {
         style={{
           width: "400px",
           height: "400px",
-          background: b: transparentBg ? "transparent" : bgColor,
-          borderRadius: `${rounded}px`,
+        background: transparentBg ? "transparent" : bgColor,          borderRadius: `${rounded}px`,
           padding: `${padding}px`,
           display: "flex",
           alignItems: "center",
