@@ -123,6 +123,70 @@ const UserProvider = (({ children }) => {
     }
   };
 
+    const vectorizeImage = async () => {
+    if (!imageSrc) {
+      alert("Aucune image à vectoriser");
+      return;
+    }
+
+    try {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = imageSrc;
+
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+      let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${canvas.width}" height="${canvas.height}" viewBox="0 0 ${canvas.width} ${canvas.height}">`;
+
+      const blockSize = 4;
+
+      for (let y = 0; y < canvas.height; y += blockSize) {
+        for (let x = 0; x < canvas.width; x += blockSize) {
+          const i = (y * canvas.width + x) * 4;
+          const r = imageData.data[i];
+          const g = imageData.data[i + 1];
+          const b = imageData.data[i + 2];
+          const a = imageData.data[i + 3];
+
+          if (a < 128) continue;
+
+          const color = `rgb(${r},${g},${b})`;
+          const opacity = a / 255;
+
+          svg += `<rect x="${x}" y="${y}" width="${blockSize}" height="${blockSize}" fill="${color}" opacity="${opacity}"/>`;
+        }
+      }
+
+      svg += '</svg>';
+
+      const blob = new Blob([svg], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = `logo-${Date.now()}.svg`;
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(url), 100);
+
+      alert("Image vectorisée avec succès !");
+    } catch (error) {
+      console.error("Erreur lors de la vectorisation:", error);
+      alert("Erreur lors de la vectorisation de l'image");
+    }
+  };
+
   useEffect(() => {
     const updatedValue = {
       ...storedValues,
@@ -166,6 +230,7 @@ const UserProvider = (({ children }) => {
   setTransparentBg,
     logoRef,
     downloadLogoPng,
+        vectorizeImage,
         removeBackground,
   };
 
