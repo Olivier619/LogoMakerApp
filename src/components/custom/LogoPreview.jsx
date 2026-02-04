@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 export default function LogoPreview() {
-  const { size, rotate, color, rounded, padding, bgColor, imageSrc, logoRef } =
+  const { size, rotate, color, rounded, padding, bgColor, imageSrc, logoRef } , imageHue, imageSaturation, imageBrightness, transparentBg=
     useContext(UserContext);
 
   return (
@@ -12,13 +12,14 @@ export default function LogoPreview() {
         style={{
           width: "400px",
           height: "400px",
-          background: bgColor,
+          background: b: transparentBg ? "transparent" : bgColor,
           borderRadius: `${rounded}px`,
           padding: `${padding}px`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxSizing: "border-box",
+          boxSizing: "border-box",,
+        filter: `hue-rotate(${imageHue}deg) saturate(${imageSaturation}%) brightness(${imageBrightness}%)`
         }}
       >
         {imageSrc ? (
