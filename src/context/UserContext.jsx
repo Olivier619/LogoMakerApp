@@ -72,9 +72,18 @@ const UserProvider = (({ children }) => {
       bgRounded: rounded,
       bgPadding: padding,
       bgColor: bgColor,
+          imageHue: imageHue,
+    imageSaturation: imageSaturation,
+    imageBrightness: imageBrightness,
+    transparentBg: transparentBg,
     };
     localStorage.setItem("value", JSON.stringify(updatedValue));
-  }, [size, rotate, color, rounded, padding, bgColor, imageSrc]);
+  }, [size, rotate, color, rounded, padding, bgColor, imageSrc, imageHue, imageSaturation, imageBrightness, transparentBg]);
+
+    const [imageHue, setImageHue] = useState(() => getInitialValue("imageHue", 0));
+  const [imageSaturation, setImageSaturation] = useState(() => getInitialValue("imageSaturation", 100));
+  const [imageBrightness, setImageBrightness] = useState(() => getInitialValue("imageBrightness", 100));
+  const [transparentBg, setTransparentBg] = useState(() => getInitialValue("transparentBg", false));
 
   const value = {
     size,
@@ -90,7 +99,15 @@ const UserProvider = (({ children }) => {
     bgColor,
     setBgColor,
     imageSrc,
-    setImageSrc,
+    setImageSrc,,
+  imageHue,
+  setImageHue,
+  imageSaturation,
+  setImageSaturation,
+  imageBrightness,
+  setImageBrightness,
+  transparentBg,
+  setTransparentBg
     logoRef,
     downloadLogoPng,
   };
