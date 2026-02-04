@@ -22,6 +22,11 @@ const UserProvider = (({ children }) => {
     getInitialValue("bgColor", "rgba(255,255,255,1)")
   );
   const [imageSrc, setImageSrc] = useState(null);
+  const [imageHue, setImageHue] = useState(() => getInitialValue("imageHue", 0));
+  const [imageSaturation, setImageSaturation] = useState(() => getInitialValue("imageSaturation", 100));
+  const [imageBrightness, setImageBrightness] = useState(() => getInitialValue("imageBrightness", 100));
+  const [transparentBg, setTransparentBg] = useState(() => getInitialValue("transparentBg", false));
+
   const logoRef = useRef();
 
   const downloadLogoPng = async () => {
@@ -80,11 +85,7 @@ const UserProvider = (({ children }) => {
     localStorage.setItem("value", JSON.stringify(updatedValue));
   }, [size, rotate, color, rounded, padding, bgColor, imageSrc, imageHue, imageSaturation, imageBrightness, transparentBg]);
 
-    const [imageHue, setImageHue] = useState(() => getInitialValue("imageHue", 0));
-  const [imageSaturation, setImageSaturation] = useState(() => getInitialValue("imageSaturation", 100));
-  const [imageBrightness, setImageBrightness] = useState(() => getInitialValue("imageBrightness", 100));
-  const [transparentBg, setTransparentBg] = useState(() => getInitialValue("transparentBg", false));
-
+    
   const value = {
     size,
     setSize,
