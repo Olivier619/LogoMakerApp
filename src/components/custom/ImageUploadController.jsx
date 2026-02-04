@@ -51,6 +51,22 @@ export default function ImageUploadController() {
         Réinitialiser
       </Button>
 
+            <Button
+        onClick={removeBackground}
+        variant="outline"
+        className="w-full"
+      >
+        Supprimer l'arrière-plan
+      </Button>
+
+      <Button
+        onClick={vectorizeImage}
+        variant="outline"
+        className="w-full"
+      >
+        Vectoriser l'image (SVG)
+      </Button>
+
       {/* Sliders for image customization */}
       <div className="space-y-4 mt-6">
         {/* Size Slider */}
