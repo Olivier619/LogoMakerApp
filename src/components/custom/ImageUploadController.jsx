@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { Button } from "../../ui/button";
+import { Button } from "../ui/button";
 
 export default function ImageUploadController() {
   const { setImageSrc, size, setSize, rotate, setRotate, padding, setPadding, rounded, setRounded } = useContext(UserContext);
