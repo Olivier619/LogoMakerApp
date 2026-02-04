@@ -16,8 +16,8 @@ export default function LogoPreview() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxSizing: "border-box",,
-        filter: `hue-rotate(${imageHue}deg) saturate(${imageSaturation}%) brightness(${imageBrightness}%)`
+                      boxSizing: "border-box",
+                    filter: `hue-rotate(${imageHue}deg) saturate(${imageSaturation}%) brightness(${imageBrightness}%)`
         }}
       >
         {imageSrc ? (
