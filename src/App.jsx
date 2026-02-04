@@ -1,12 +1,11 @@
 import React, { useContext, useState } from "react";
 import Header from "./components/custom/Header";
 import SideNav from "./components/custom/SideNav";
-import IconController from "./components/custom/IconController";
+import ImageUploadController from "./components/custom/ImageUploadController";
 import BackgroundController from "./components/custom/BackgroundController";
 import LogoPreview from "./components/custom/LogoPreview";
 import Footer from "./components/custom/Footer";
 import { Separator } from "./components/ui/separator";
-import IconList from "./components/custom/IconList";
 
 const App = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -19,7 +18,7 @@ const App = () => {
         </div>
         <div className="md:col-span-3 h-[330px] md:h-screen border  shadow-sm p-5 overflow-auto">
           <Separator className="md:hidden" />
-          {activeIndex == 0 ? <IconController /> : <BackgroundController />}
+          {activeIndex == 0 ? <ImageUploadController /> : <BackgroundController />}
         </div>
         <div className="hidden md:block md:col-span-3 ">
           <LogoPreview />
