@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator"
 import logo from "@/assets/logo1.png"
 
 const Header = ({activeIndex,setActiveIndex}) => {
-  const { downloadIconAsPng } = useContext(UserContext);
+  const { downloadLogoPng } = useContext(UserContext);
   return (
     <>
     <div className="px-10 py-2 gap-3 flex justify-between  items-center bg-[#23a2d4] overflow-x-hidden ">
@@ -19,7 +19,7 @@ const Header = ({activeIndex,setActiveIndex}) => {
       <SideNav activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
       </div>
       {/* <div> */}
-      <Button className="flex gap-2 items-center bg-[#0853b3] hover:scale-110 hover:bg-[#0853b3] transition-all duration-300 " onClick={downloadIconAsPng}>
+      <Button className="flex gap-2 items-center bg-[#0853b3] hover:scale-110 hover:bg-[#0853b3] transition-all duration-300 " onClick={downloadLogoPng}>
         <Download /> Download
       </Button>
       {/* </div> */}
